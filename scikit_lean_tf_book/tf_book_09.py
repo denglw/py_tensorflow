@@ -176,7 +176,7 @@ optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)  # no
 training_op = optimizer.minimize(mse)  # not shown
 
 init = tf.global_variables_initializer()
-saver = tf.train.Saver()
+saver = tf.train.Saver() #训练模型保存
 
 with tf.Session() as sess:
     sess.run(init)

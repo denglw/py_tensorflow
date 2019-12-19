@@ -11,7 +11,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 import tensorflow as tf
 
 
-# 批量标准化
+# 1、批量标准化 Batch Normalization，BN
 if __name__ == '__main__':
     n_inputs = 28*28
     n_hidden1 = 300

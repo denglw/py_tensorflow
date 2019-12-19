@@ -10,7 +10,7 @@ import tensorflow as tf
 print("Version : %s" % tf.__version__)
 print("Path : %s" % tf.__path__)
 
-# 简单测试
+# 简单测试  TensorFlow环境
 import tensorflow as tf
 sess = tf.Session()
 a = tf.constant(10)
