@@ -4,4 +4,4 @@
 # @Author  : Denglw
 # @Email   : 892253193@qq.com
 # @File    : __init__.py.py
-# @desc:
+# @desc: 莫烦python视频 https://www.cnblogs.com/mq0036/p/8589504.html
