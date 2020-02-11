@@ -224,8 +224,8 @@ optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)
 training_op = optimizer.minimize(mse)
 
 init = tf.global_variables_initializer()
-mse_summary = tf.summary.scalar('MSE', mse)
-file_writer = tf.summary.FileWriter(logdir, tf.get_default_graph())
+mse_summary = tf.summary.scalar('MSE', mse) # summary
+file_writer = tf.summary.FileWriter(logdir, tf.get_default_graph()) # graph
 
 n_epochs = 10
 batch_size = 100
