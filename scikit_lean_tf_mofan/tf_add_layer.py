@@ -4,7 +4,7 @@
 # @Author  : Denglw
 # @Email   : 892253193@qq.com
 # @File    : tf_add_layer.py
-# @desc: 莫烦视频 定义添加神经层函数add_layer()，以及训练过程可视化
+# @desc: 莫烦视频 定义添加神经层函数add_layer()，以及训练过程可视化 TensorBoard
 
 import tensorflow as tf
 import numpy as np
@@ -30,14 +30,15 @@ ys = tf.placeholder(tf.float32,[None,1])
 
 l1 = add_layer(xs,1,10,activation_function=tf.nn.relu)
 predition = add_layer(l1,10,1,activation_function=None)
-
-loss = tf.reduce_mean(tf.reduce_sum(tf.square(ys-predition),reduction_indices=[1]))
-train_step = tf.train.GradientDescentOptimizer(0.1).minimize(loss)
+with tf.name_scope('loss'):
+    loss = tf.reduce_mean(tf.reduce_sum(tf.square(ys-predition),reduction_indices=[1]))
+with tf.name_scope('train'):
+    train_step = tf.train.GradientDescentOptimizer(0.1).minimize(loss)
 
 init = tf.initialize_all_variables()
 sess = tf.Session()
 sess.run(init)
-
+# writer = tf.train.SummaryWriter("logs/",sess.graph)  # 训练图形TensorBoard
 fig = plt.figure()
 ax = fig.add_subplot(1,1,1)
 ax.scatter(x_data,y_data)
@@ -55,3 +56,14 @@ for i in range(1000):
         predition_value = sess.run(predition,feed_dict={xs:x_data})
         lines = ax.plot(x_data,predition_value,'-r',lw=5) #机器学习展示x,y的变化过程
         plt.pause(0.1) #暂停0.1秒
+
+'''
+Optimizer优化器
+SGD
+Momentum
+NAG
+Adagrad
+Adadelta
+Rmsprop
+'''
+
