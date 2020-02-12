@@ -3,7 +3,7 @@
 # @Time    : 2020/2/9 15:01
 # @Author  : Denglw
 # @Email   : 892253193@qq.com
-# @File    : tf_classification_demo.py
+# @File    : tf_classification.py
 # @desc: 分类归类学习 tf.nn.softmax
 
 import tensorflow as tf
