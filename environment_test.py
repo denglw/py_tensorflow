@@ -6,7 +6,8 @@ Created on Tue Aug 13 12:45:13 2019
 """
 
 import tensorflow as tf
-
+# tensorflow Version : 1.14.0
+# numpy install : pip install numpy=1.16.4
 print("Version : %s" % tf.__version__)
 print("Path : %s" % tf.__path__)
 
