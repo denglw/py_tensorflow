@@ -10,7 +10,7 @@ from functools import partial
 from tensorflow.examples.tutorials.mnist import input_data
 import tensorflow as tf
 
-
+# 批量标准化，梯度裁剪 解决梯度消失或者梯度爆炸
 # 1、批量标准化 Batch Normalization，BN
 if __name__ == '__main__':
     n_inputs = 28*28
