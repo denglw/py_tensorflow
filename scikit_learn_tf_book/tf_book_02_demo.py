@@ -95,9 +95,9 @@ def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
 import pandas as pd
 # 加载数据
 def load_housing_data(housing_path=HOUSING_PATH):
-    data_dir = os.path.dirname(os.getcwd())
-    current_dir = os.path.join(data_dir,housing_path)
-    csv_path = os.path.join(current_dir, "housing.csv")
+    current_dir = os.path.dirname(os.getcwd()) #当前工程路径
+    data_dir = os.path.join(current_dir,housing_path)
+    csv_path = os.path.join(data_dir, "housing.csv")
     return pd.read_csv(csv_path)
 
 housing = load_housing_data()
