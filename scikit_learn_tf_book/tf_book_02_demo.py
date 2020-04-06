@@ -7,7 +7,7 @@
 # @desc:  一个完整的机器学习项目
 # https://www.jianshu.com/p/aec40aa580e0
 
-'''
+'''详细分析过程
 完整地学习一个案例项目。下面是主要步骤：
 1、项目概述。(规划问题,商业目标，选择什么样算法，评估模型性能的指标)
 2、获取数据，查看数据结构，创建测试集。（分层采样）
@@ -30,9 +30,9 @@ from six.moves import urllib
 '''
 1.1规划问题
 监督或非监督，还是强化学习？
-分类任务、回归任务，还是其它的？
+分类任务、回归任务，还是其它的？(分类、回归、聚类、关联)
 批量学习还是线上学习？
-如果数据量很大，你可以要么在多个服务器上对批量学习做拆分（使用 MapReduce 技术）或是使用线上学习。
+如果数据量很大，你可以要么在多个服务器上对批量学习做拆分（使用MapReduce技术）或是使用线上学习。
 1.2性能指标
 均方误差（mean-square error, MSE）
 均方根误差（Root Mean Square Error，RMSE）
@@ -196,8 +196,8 @@ housing["income_cat"].hist() # 分层处理结果图
 from sklearn.model_selection import StratifiedShuffleSplit
 split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
 for train_index, test_index in split.split(housing,housing["income_cat"]):
-    strat_train_set = housing.loc(train_index)
-    strat_test_set = housing.loc(test_index)
+    strat_train_set = housing.loc[train_index]
+    strat_test_set = housing.loc[test_index]
 
 # 对比采样效果
 #分层采样的测试集的收入分类比例
@@ -338,9 +338,9 @@ housing_num = housing.drop('ocean_proximity', axis=1)
 # alternatively: housing_num = housing.select_dtypes(include=[np.number])
 imputer.fit(housing_num) #拟合数据
 # imputer计算出了每个属性的中位数，并将结果保存在了实例变量statistics_
-imputer.statistics_ #查看拟合结果
+imputer.statistics_ #查看拟合结果1
 # Check that this is the same as manually computing the median of each attribute
-housing_num.median().values #查看拟合结果
+housing_num.median().values #查看拟合结果2
 # Transform the training set
 X = imputer.transform(housing_num) #转换处理
 # 超参数都可以通过实例的public变量直接访问
@@ -390,7 +390,7 @@ class CombinedAttributesAdder(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self  # nothing else to do
     def transform(self, X, y=None):
-        rooms_per_household = X[:, rooms_ix] / X[:, household_ix]
+        rooms_per_household = X[:, rooms_ix] / X[:, household_ix] # 获取所有行的rooms_ix数据X[:, rooms_ix]
         population_per_household = X[:, population_ix] / X[:, household_ix]
         if self.add_bedrooms_per_room:
             bedrooms_per_room = X[:, bedrooms_ix] / X[:, rooms_ix]
