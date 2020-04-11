@@ -394,7 +394,8 @@ print("svm_rmse:",svm_rmse)
 '''支持向量机回归 Support Vector Regression(SVR)是SVM的一个分支'''
 
 # 6、模型微调
-# 6.1 网格搜索 GridSearchCV
+# 6.1网格搜索 GridSearchCV
+# https://www.zhihu.com/question/57394983
 param_grid = [
     # try 12 (3×4) combinations of hyperparameters
     {'n_estimators': [3, 10, 30], 'max_features': [2, 4, 6, 8]},
@@ -430,6 +431,14 @@ rnd_search.fit(housing_prepared, housing_labels)
 # 分析最佳模型和它们的误差
 feature_importances = grid_search.best_estimator_.feature_importances_
 print("feature_importances :",feature_importances)
+
+# 6.3集成方法
+'''另一种微调系统的方法是将表现最好的模型组合起来。
+组合（集成）之后的性能通常要比单独的模型要好（就像随机森林要比单独的决策树要好），
+特别是当单独模型的误差类型不同时。
+'''
+
+# 分析最佳模型和它们的误差
 # 将重要性分数和属性名放到一起：
 extra_attribs = ["rooms_per_hhold", "pop_per_hhold", "bedrooms_per_room"]
 #cat_encoder = cat_pipeline.named_steps["cat_encoder"] # old solution
@@ -445,7 +454,7 @@ final_model = grid_search.best_estimator_
 X_test = strat_test_set.drop("median_house_value", axis=1)
 y_test = strat_test_set["median_house_value"].copy()
 
-X_test_prepared = full_pipeline.transform(X_test)
+X_test_prepared = full_pipeline.transform(X_test) # 注意不是 fit_transform()
 final_predictions = final_model.predict(X_test_prepared)
 final_mse = mean_squared_error(y_test, final_predictions)
 final_rmse = np.sqrt(final_mse)
@@ -468,4 +477,8 @@ joblib.dump(my_model, "my_model.pkl") # DIFF
 my_model_loaded = joblib.load("my_model.pkl") # DIFF
 
 
+# 8、部署、监控、维护系统。
 
+
+# 实践
+# 竞赛网站 http://kaggle.com/
