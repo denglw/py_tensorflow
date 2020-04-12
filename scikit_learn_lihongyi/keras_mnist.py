@@ -7,13 +7,17 @@
 # @desc:  keras2.0   mnist手写数字识别
 # tensorflow 1.14.0  keras2.3.1
 # https://blog.csdn.net/weixin_41122036/article/details/89003521
+# https://blog.csdn.net/lly1122334/article/details/88604640
+# https://www.cnblogs.com/wj-1314/p/9579490.html
 
 import os
+import random
+
 import numpy as np
 import keras
 from keras.datasets import mnist
 from keras.layers import Dense,Dropout
-from keras.optimizers import SGD,Adam
+from keras.optimizers import SGD, Adam
 from keras.utils import np_utils
 from keras.models import Sequential
 
@@ -42,17 +46,16 @@ def load_data():
     y_train = y_train[0: number]
     x_train = x_train.reshape(number, 28 * 28)
     x_test = x_test.reshape(x_test.shape[0], 28 * 28)
-    x_train = x_train.astype('float32')
+    x_train = x_train.astype('float32') # 转为float类型
     x_test = x_test.astype('float32')
     # convert class vectors to binary class matrices
-    y_train = np_utils.to_categorical(y_train, 10)
+    y_train = np_utils.to_categorical(y_train, 10) # 独热编码
     y_test = np_utils.to_categorical(y_test, 10)
     x_train = x_train
     x_test = x_test
     # x_test = np.random.normal(x_test)
-    x_train = x_train / 255
+    x_train = x_train / 255  # 2^8=256  0~255
     x_test = x_test / 255
-    # x_test = np.random.normal(x_test)
     return (x_train, y_train), (x_test, y_test)
 
 # 下载
@@ -60,27 +63,44 @@ def load_data():
 
 # 引入模型 训练&测试 输出测试结果
 model = Sequential()
-model.add(Dense(input_dim=28*28, units=633,activation='sigmoid'))
+model.add(Dense(input_dim=28*28, units=689,activation='relu'))
+# model.add(Dense(input_dim=28*28, units=689,activation='sigmoid'))
 # model.add(Dropout(0.5)) # dropout
-model.add(Dense(units=633,activation='sigmoid'))
+model.add(Dense(units=689,activation='relu'))
+# model.add(Dense(units=689,activation='sigmoid'))
 # model.add(Dropout(0.5)) # dropout
-model.add(Dense(units=633,activation='sigmoid'))
+model.add(Dense(units=689,activation='relu'))
+# model.add(Dense(units=689,activation='sigmoid'))
+# model.add(Dropout(0.5)) # dropout
 # for i in range(10):
-#     model.add(Dense(units=633, activation='sigmoid'))
+#     model.add(Dense(units=633, activation='relu'))
 model.add(Dense(units=10,activation='softmax'))
-model.compile(loss='mse',optimizer=SGD(lr=0.1), metrics = ['accuracy'])
+# model.compile(loss='mse',optimizer=SGD(lr=0.1), metrics = ['accuracy'])
 # model.compile(loss='categorical_crossentropy',optimizer=SGD(lr=0.1), metrics = ['accuracy'])
-# model.compile(loss='categorical_crossentropy',optimizer=Adam, metrics = ['accuracy'])
+model.compile(loss='categorical_crossentropy',optimizer='adam', metrics = ['accuracy'])
+print(model.summary()) # 模型基本信息
 model.fit(x_train,y_train,batch_size=100,epochs=20)
 
 score = model.evaluate(x_train,y_train)
+score_test = model.evaluate(x_test,y_test)
 print('\n Train Loss:',score[0])
-print('\n Train Acc:',score[1])
-score = model.evaluate(x_test,y_test)
-print('\n Test Loss:',score[0])
-print('\n Test Acc:',score[1])
+print('Train Acc:',score[1])
+print('\n Test Loss:',score_test[0])
+print(' Test Acc:',score_test[1])
 
+# 保存
+model.save('mnistmodel.h5')
 
-
-
-
+# 预测
+print("\n模拟预测：")
+index = random.randint(0, x_test.shape[0]) # 随机获取
+x = x_test[index]
+y = y_test[index]
+y = np.argmax(y) # 独热编码    最大值的位置即这个数字值
+x.shape = (1,784)#变成[[]]
+# x = x.flatten()[None]  # 也可以用这个
+predict = model.predict(x)
+predict = np.argmax(predict)#取最大值的位置
+print('index', index)
+print('original:', y)
+print('predicted:', predict)
