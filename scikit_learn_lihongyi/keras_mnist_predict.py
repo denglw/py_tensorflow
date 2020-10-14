@@ -6,6 +6,9 @@
 # @File    : keras_mnist_predict.py
 # @desc:  keras2.0   mnist手写数字   预测
 # tensorflow 1.14.0  keras2.3.1
+# caffe框架
+# https://blog.csdn.net/pcb931126/article/details/81412059
+# https://blog.csdn.net/linglian0522/article/details/78346237
 import random
 import numpy as np
 import matplotlib.pyplot as plt

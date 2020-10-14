@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://E:/py_workspace/handson-ml/.idea/handson-ml.iml" filepath="E:/py_workspace/handson-ml/.idea/handson-ml.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/py_tensorflow.iml" filepath="$PROJECT_DIR$/.idea/py_tensorflow.iml" />
+      <module fileurl="file://E:/py_tensorflow2/.idea/py_tensorflow2.iml" filepath="E:/py_tensorflow2/.idea/py_tensorflow2.iml" />
     </modules>
   </component>
 </project>

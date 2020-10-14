@@ -84,7 +84,7 @@ model.fit(x_train,y_train,batch_size=100,epochs=20)
 score = model.evaluate(x_train,y_train)
 score_test = model.evaluate(x_test,y_test)
 print('\n Train Loss:',score[0])
-print('Train Acc:',score[1])
+print(' Train Acc:',score[1])
 print('\n Test Loss:',score_test[0])
 print(' Test Acc:',score_test[1])
 
